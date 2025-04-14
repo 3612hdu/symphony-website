@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCTV音乐厅时代交响音乐会</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary-color: #8B0000;
+            --secondary-color: #D4AF37;
+            --text-color: #2C1810;
+            --bg-color: #FDF5E6;
+            --border-color: #8B4513;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: "SimSun", "宋体", serif;
+            line-height: 1.8;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h100v100H0z" fill="none"/><path d="M20 20h60v60H20z" fill="none" stroke="%238B4513" stroke-width="0.5" opacity="0.1"/></svg>');
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .concert-intro {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 3rem;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.1);
+            position: relative;
+        }
+
+        .concert-intro::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid var(--border-color);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            letter-spacing: 0.1em;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: var(--secondary-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .concert-section {
+            margin: 2.5rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+        }
+
+        .info-line {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin: 0.5rem 0;
+        }
+
+        .program-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .program-list li {
+            margin: 1rem 0;
+            padding: 0.8rem 1.2rem;
+            border-left: 3px solid var(--secondary-color);
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .program-list li:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .artist-item {
+            padding: 1rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .artist-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
+        }
+
+        .navigation-buttons {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--primary-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-color);
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: all 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .concert-intro {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .artists-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="concert-intro">
+            <h1>《CCTV音乐厅》时代交响音乐会</h1>
+            
+            <div class="concert-section">
+                <h2>音乐会介绍</h2>
+                <p>本场音乐会中央民族室内乐团倾情演演绎，以"时代交响"为主题，展现了中国传统音乐与现代音乐的完美融合，音乐会上演了多位当代优秀音乐家的精彩作品。通过民族乐器的独特魅力，为观众带来一场视听盛宴。</p>
+            </div>
+
+            <div class="concert-section">
+                <p class="info-line">演出时间：2023年8月27日</p>
+                <p class="info-line">演出地点：中央广播电视总台音乐厅</p>
+            </div>
+
+            <div class="concert-section">
+                <h2>演出团体</h2>
+                <div class="group-info">
+                    <h3>"原人行"室内乐团</h3>
+                    <p>专注于传统民族音乐的创新演绎，以精湛的技艺和独特的艺术视角著称。</p>
+                </div>
+                <div class="group-info">
+                    <h3>"青衫渡"室内乐团</h3>
+                    <p>致力于民族音乐的现代化探索，以新颖的演奏方式展现中国传统音乐的魅力。</p>
+                </div>
+            </div>
+
+            <div class="concert-section">
+                <h2>演出曲目</h2>
+                <ul class="program-list">
+                    <li>《四海欢腾喜迎春》- 编创：罗勇</li>
+                    <li>《光明行》- 作曲：刘天华 编曲：杜沁</li>
+                    <li>《踏歌》- 作曲：马久越</li>
+                    <li>《桃花源》- 作曲：李明</li>
+                    <li>《雨打芭蕉》- 民族乐器合奏</li>
+                    <li>《锦绣四季》第三乐章 - 作曲：王丹红</li>
+                    <li>《春天消息》- 陈光群 编创：冯英</li>
+                    <li>《花金与玉笛》- 作曲：朱晓林</li>
+                </ul>
+            </div>
+
+            <div class="concert-section">
+                <h2>特邀艺术家</h2>
+                <div class="artists-grid">
+                    <div class="artist-item">古筝：廖青</div>
+                    <div class="artist-item">扬琴：周婷婷</div>
+                    <div class="artist-item">笛子：陈罗罗、丁晓达</div>
+                    <div class="artist-item">高胡：李超</div>
+                    <div class="artist-item">唢呐：张晋</div>
+                    <div class="artist-item">琵琶：赵可</div>
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <a href="video.html" class="btn">观看演出视频</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
