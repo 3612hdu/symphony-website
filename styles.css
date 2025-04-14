@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #fff;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+    font-weight: bold;
+    text-align: center;
+}
+
+h2 {
+    color: #333;
+    margin: 20px 0 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+
+h3 {
+    color: #333;
+    margin: 15px 0 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.concert-section {
+    margin-bottom: 25px;
+}
+
+.info-line {
+    margin: 10px 0;
+    color: #333;
+}
+
+.group-info {
+    margin: 15px 0;
+}
+
+.group-info p {
+    color: #666;
+    font-size: 0.95em;
+    margin-top: 5px;
+}
+
+.program-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.program-list li {
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 15px;
+    color: #333;
+}
+
+.program-list li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #666;
+}
+
+.artists-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.artist-item {
+    padding: 5px 0;
+    color: #333;
+}
+
+.navigation-buttons {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007AFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.6em;
+    }
+
+    .artists-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 移动端优化 */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.4em;
+    }
+} 
