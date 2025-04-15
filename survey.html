@@ -9,6 +9,8 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-user-select: none;
+            user-select: none;
         }
         body {
             font-family: "Microsoft YaHei", sans-serif;
@@ -80,6 +82,8 @@
             resize: vertical;
             font-size: 14px;
             font-family: inherit;
+            -webkit-user-select: text;
+            user-select: text;
         }
         textarea:focus {
             outline: none;
@@ -202,8 +206,8 @@
                 </div>
 
                 <div class="button-group">
-                    <button type="button" class="btn btn-secondary" onclick="window.location.href='video.html'">返回视频</button>
-                    <button type="submit" class="btn btn-primary">提交反馈</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='video.html'" title="返回视频页面">返回视频</button>
+                    <button type="submit" class="btn btn-primary" title="提交您的反馈">提交反馈</button>
                 </div>
             </form>
             
@@ -254,45 +258,42 @@
                     throw new Error('请至少选择一个喜欢的曲目');
                 }
 
-                const response = await fetch('https://api.openai.com/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer sk-2fb0bded9de04e7caa858bfca3539433'
-                    },
-                    body: JSON.stringify({
-                        model: "gpt-3.5-turbo",
-                        messages: [{
-                            role: "system",
-                            content: "你是一个专业的音乐会评分AI，请根据观众反馈的内容进行评分，满分为100分。评分标准包括：内容的丰富度（30分）、表达的清晰度（30分）、情感的真诚度（40分）。请给出详细的评分过程和理由。"
-                        }, {
-                            role: "user",
-                            content: `整体评价：${rating.value}\n选择的曲目：${selectedSongs.map(cb => cb.value).join('、')}\n喜欢的理由：${reason}`
-                        }]
-                    })
-                });
+                // 使用本地评分系统替代 OpenAI API
+                const feedback = {
+                    rating: rating.value,
+                    songs: selectedSongs.map(cb => cb.value).join('、'),
+                    reason: reason
+                };
+
+                // 本地评分逻辑
+                let score = 0;
+                // 评价内容丰富度 (30分)
+                score += selectedSongs.length * 6; // 每选择一首歌加6分，最多30分
+                // 表达清晰度 (30分)
+                score += Math.min(30, Math.floor(reason.length / 10)); // 每10个字1分，最多30分
+                // 情感真诚度 (40分)
+                score += rating.value === '很好' ? 40 : 
+                        rating.value === '好' ? 35 :
+                        rating.value === '一般' ? 30 : 25;
+
+                // 生成评分反馈
+                const aiResponse = `感谢您的反馈！根据评分标准，您的反馈获得了以下评分：
                 
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    console.error('API错误详情:', errorData);
-                    throw new Error(`API请求失败: ${response.status} ${response.statusText}`);
-                }
-                
-                const data = await response.json();
-                console.log('API响应:', data); // 添加调试日志
-                
-                if (!data.choices || !data.choices[0] || !data.choices[0].message) {
-                    throw new Error('API响应格式错误');
-                }
-                
-                const aiResponse = data.choices[0].message.content;
-                console.log('AI响应:', aiResponse); // 添加调试日志
-                
-                const scoreMatch = aiResponse.match(/(\d+)\s*分/);
-                const finalScore = scoreMatch ? parseInt(scoreMatch[0]) : 0;
-                
+内容丰富度：${Math.min(30, selectedSongs.length * 6)}/30分
+- 您选择了${selectedSongs.length}首喜欢的曲目，展现了对音乐会的关注度。
+
+表达清晰度：${Math.min(30, Math.floor(reason.length / 10))}/30分
+- 您的理由描述详细，表达清晰。
+
+情感真诚度：${rating.value === '很好' ? 40 : rating.value === '好' ? 35 : rating.value === '一般' ? 30 : 25}/40分
+- 您对音乐会的评价为"${rating.value}"，体现了真实的观感。
+
+最终得分：${score}分
+
+感谢您的宝贵意见，这对我们非常重要！`;
+
                 thinking.textContent = aiResponse;
-                score.textContent = `最终得分：${finalScore}分`;
+                score.textContent = `最终得分：${score}分`;
                 
                 // 添加庆祝动画
                 resultContainer.classList.add('celebration');
