@@ -197,7 +197,7 @@
 
                 <div class="form-group">
                     <label for="reason">喜欢的理由（至少100字）</label>
-                    <textarea id="reason" required minlength="100"></textarea>
+                    <textarea id="reason" required minlength="100" placeholder="请输入至少100字的理由..."></textarea>
                     <div class="char-count">0/100</div>
                 </div>
 
@@ -246,7 +246,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer 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'
+                        'Authorization': 'Bearer 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'
                     },
                     body: JSON.stringify({
                         model: "gpt-3.5-turbo",
@@ -259,6 +259,10 @@
                         }]
                     })
                 });
+                
+                if (!response.ok) {
+                    throw new Error('API请求失败');
+                }
                 
                 const data = await response.json();
                 const aiResponse = data.choices[0].message.content;
@@ -277,6 +281,7 @@
             } catch (error) {
                 console.error('Error:', error);
                 thinking.textContent = '抱歉，评分系统暂时无法使用，请稍后再试。';
+                score.textContent = '';
             }
         });
     </script>
